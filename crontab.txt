@@ -1,0 +1,8 @@
+# Run Diesel script at 6 PM CT
+0 18 * * * cd /app && node DieselFuelScript.js >> /var/log/cron.log 2>&1
+
+# Run Oil Rig script at 6 PM CT
+0 18 * * * cd /app && node oilrigcount.js >> /var/log/cron.log 2>&1
+
+# Run Trading Economics script at 6 PM CT
+0 18 * * * cd /app && node TE-API.js >> /var/log/cron.log 2>&1
