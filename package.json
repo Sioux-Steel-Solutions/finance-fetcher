@@ -1,0 +1,25 @@
+{
+  "name": "finance-fetcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "DieselFuelScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcnid/finance-fetcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/arcnid/finance-fetcher/issues"
+  },
+  "homepage": "https://github.com/arcnid/finance-fetcher#readme",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "tradingeconomics": "^2.5.6"
+  }
+}
