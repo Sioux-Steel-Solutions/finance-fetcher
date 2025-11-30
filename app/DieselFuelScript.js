@@ -1,6 +1,5 @@
-const axios = require("axios");
-const { execSync } = require("child_process");
-
+import axios from "axios";
+import { execSync } from "child_process";
 
 // ---------- CONFIG ----------
 const SERVER = "10.0.15.81";
