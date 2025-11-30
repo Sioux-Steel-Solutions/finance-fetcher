@@ -1,6 +1,6 @@
-import { runDiesel } from "./app/DieselFuelScript";
-import { runTE } from "./app/TE-API";
-import { runOil } from "./app/oilrigcount";
+import { runDiesel } from "./app/DieselFuelScript.js";
+import { runTE } from "./app/TE-API.js";
+import { runOil } from "./app/oilrigcount.js";
 import { CronJob } from "cron";
 
 const job = new CronJob(
