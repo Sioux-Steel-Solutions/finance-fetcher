@@ -6,15 +6,15 @@ import { runOil } from "./app/oilrigcount.js";
 import { CronJob } from "cron";
 
 const job = new CronJob(
-  "0 18 * * 1-5",      // MON–FRI at 6:00 PM CST
+  "0 18 * * 1-5", // MON–FRI at 6:00 PM CST
   async () => {
     await runSchedule();
   },
   () => {
     console.log("Job Completed");
   },
-  true,                // Start the job immediately
-  "America/Chicago"    // Timezone
+  false, // Start the job immediately
+  "America/Chicago" // Timezone
 );
 
 async function runSchedule() {
@@ -30,5 +30,5 @@ async function runSchedule() {
 export default job;
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

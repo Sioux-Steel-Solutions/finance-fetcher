@@ -17,6 +17,32 @@ const TE_KEY = "888C90D60C51422:5A85163EF0B6422";
 te.login(TE_KEY);
 
 // =========================================
+// UTILS
+// =========================================
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Throttled TE requests — ensures we NEVER hit rate limit
+async function throttledTECall(fn, ...args) {
+  await sleep(1250); // 1.25 seconds delay to avoid TE rate limit
+
+  try {
+    return await fn(...args);
+  } catch (err) {
+    // If TE rate-limits us (409), retry once after waiting
+    if (err?.response?.status === 409) {
+      console.warn("TE RATE LIMIT (409). Retrying after 2 sec...");
+      await sleep(2000);
+      return await fn(...args);
+    }
+
+    console.error("TradingEconomics API Error:", err?.response?.data || err);
+    return null;
+  }
+}
+
+// =========================================
 // SQL EXECUTOR
 // =========================================
 function runSQL(sql) {
@@ -55,16 +81,26 @@ export async function runOil() {
   try {
     console.log("Fetching ENERGY indicators for the United States...");
 
-    const indicators = await te.getIndicatorData(
+    // ---- TE FETCH (THROTTLED + RETRY SAFE) ----
+    const indicators = await throttledTECall(
+      te.getIndicatorData,
       (country = "united states"),
       (group = "energy")
     );
 
+    if (!indicators || !Array.isArray(indicators)) {
+      console.error(
+        "TradingEconomics returned invalid indicator data:",
+        indicators
+      );
+      return;
+    }
+
     // Find the Oil Rig Count indicator
     const oilRig = indicators.find(
       (x) =>
-        x.Category?.toLowerCase().includes("rig") ||
-        x.Title?.toLowerCase().includes("rig")
+        x?.Category?.toLowerCase().includes("rig") ||
+        x?.Title?.toLowerCase().includes("rig")
     );
 
     if (!oilRig) {
@@ -112,12 +148,10 @@ export async function runOil() {
     console.log("Running SQL Insert...");
     runSQL(sql);
 
-    console.log(` Inserted Oil Rig Count for ${Date}: Count = ${Count}`);
-
+    console.log(`Inserted Oil Rig Count for ${Date}: Count = ${Count}`);
   } catch (err) {
     console.error("Error fetching/inserting oil rig count:", err);
   }
 }
 
 runOil();
-
