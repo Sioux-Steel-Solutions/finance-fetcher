@@ -39,9 +39,14 @@ function existsInTable(table, dateColumn, dateValue) {
 }
 
 async function fetchAllCommodities() {
-  const url = `https://api.tradingeconomics.com/markets/commodities?c=${TE_KEY}`;
+  try{ const url = `https://api.tradingeconomics.com/markets/commodities?c=${TE_KEY}`;
   const { data } = await axios.get(url);
-  return data;
+  return data;}
+  catch(e){console.log(e)
+    return
+  }
+  
+ 
 }
 
 function insertCorn(row) {
