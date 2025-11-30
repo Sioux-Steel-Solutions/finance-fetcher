@@ -18,8 +18,15 @@ const job = new CronJob(
 async function runSchedule() {
   console.log("Running 6pm schedule...");
   await runDiesel();
+  await sleep(3000);
   await runTE();
+  await sleep(3000);
   await runOil();
+  await sleep(3000);
 }
 
 export default job;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
