@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { runDiesel } from "./app/DieselFuelScript.js";
 import { runTE } from "./app/TE-API.js";
 import { runOil } from "./app/oilrigcount.js";
