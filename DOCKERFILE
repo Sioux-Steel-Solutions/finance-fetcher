@@ -1,37 +1,15 @@
-FROM amazonlinux:2023
-
-# Install Node.js 20, cron, and tzdata
-RUN dnf install -y \
-        nodejs \
-        npm \
-        cronie \
-        tzdata \
-    && dnf clean all
-
-# Set timezone to Central (America/Chicago)
-RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime && \
-    echo "America/Chicago" > /etc/timezone
+FROM node:20
 
 # Create app directory
 WORKDIR /app
 
-# Copy your scripts
-COPY app/ /app
+# Copy project files
+COPY package*.json ./
+COPY scheduler.js ./
+COPY app ./app
 
-# Install Node dependencies (axios, tradingeconomics, etc.)
-RUN npm install axios tradingeconomics
+# Install dependencies
+RUN npm install
 
-# Copy crontab rules
-COPY crontab.txt /etc/cron.d/my-cron-job
-
-# Fix cron file permissions
-RUN chmod 0644 /etc/cron.d/my-cron-job
-
-# Register cron job
-RUN crontab /etc/cron.d/my-cron-job
-
-# Create log file
-RUN touch /var/log/cron.log
-
-# Start cron + keep container alive
-CMD ["/bin/sh", "-c", "crond && tail -f /var/log/cron.log"]
+# Run the scheduler script
+CMD ["node", "scheduler.js"]

@@ -14,7 +14,7 @@ const SERIES_ID = "GASDESW";  // weekly diesel series
 // ----------------------------
 
 
-async function run() {
+export async function runDiesel() {
   try {
     // Fetch ONLY most recent diesel price
     const url =
@@ -54,5 +54,5 @@ VALUES ('Diesel Fuel', ${closeValue}, '${date}');
   }
 }
 
-run();
+runDiesel();
 

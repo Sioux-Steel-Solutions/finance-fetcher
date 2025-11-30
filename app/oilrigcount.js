@@ -51,7 +51,7 @@ function existsInTable(dateValue) {
 // =========================================
 // MAIN FETCH + INSERT
 // =========================================
-async function run() {
+export async function runOil() {
   try {
     console.log("Fetching ENERGY indicators for the United States...");
 
@@ -119,5 +119,5 @@ async function run() {
   }
 }
 
-run();
+runOil();
 

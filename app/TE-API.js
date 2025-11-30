@@ -108,7 +108,7 @@ function insertHotRolledCoil(row) {
 // =============================
 // MAIN
 // =============================
-async function run() {
+export async function runTE() {
   console.log("Fetching commodities...");
   const commodities = await fetchAllCommodities();
 
@@ -129,4 +129,4 @@ async function run() {
   console.log("All Trading Economics inserted successfully.");
 }
 
-run();
+runTE();
