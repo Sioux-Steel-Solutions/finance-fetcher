@@ -53,5 +53,4 @@ VALUES ('Diesel Fuel', ${closeValue}, '${date}');
   }
 }
 
-runDiesel();
 

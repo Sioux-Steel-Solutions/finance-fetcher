@@ -134,4 +134,3 @@ export async function runTE() {
   console.log("All Trading Economics inserted successfully.");
 }
 
-runTE();
