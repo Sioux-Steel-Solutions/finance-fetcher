@@ -153,4 +153,3 @@ export async function runOil() {
     console.error("Error fetching/inserting oil rig count:", err);
   }
 }
-
