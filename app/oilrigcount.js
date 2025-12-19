@@ -2,6 +2,9 @@ import axios from "axios";
 import { execSync } from "child_process";
 import fs from "fs";
 import te from "tradingeconomics";
+import { URL as NodeURL } from "node:url";
+
+globalThis.URL = NodeURL;
 
 // =========================================
 // CONFIG

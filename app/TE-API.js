@@ -1,5 +1,8 @@
 import axios from "axios";
 import { execSync } from "child_process";
+import { URL as NodeURL } from "node:url";
+
+globalThis.URL = NodeURL;
 
 const SERVER = "10.0.15.81";
 const USER = "web_user";
@@ -39,14 +42,14 @@ function existsInTable(table, dateColumn, dateValue) {
 }
 
 async function fetchAllCommodities() {
-  try{ const url = `https://api.tradingeconomics.com/markets/commodities?c=${TE_KEY}`;
-  const { data } = await axios.get(url);
-  return data;}
-  catch(e){console.log(e)
-    return
+  try {
+    const url = `https://api.tradingeconomics.com/markets/commodities?c=${TE_KEY}`;
+    const { data } = await axios.get(url);
+    return data;
+  } catch (e) {
+    console.log(e);
+    return;
   }
-  
- 
 }
 
 function insertCorn(row) {
@@ -109,7 +112,6 @@ function insertHotRolledCoil(row) {
   console.log(`Inserted HRC for ${date}`);
 }
 
-
 // =============================
 // MAIN
 // =============================
@@ -133,4 +135,3 @@ export async function runTE() {
 
   console.log("All Trading Economics inserted successfully.");
 }
-

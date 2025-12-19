@@ -2,6 +2,9 @@
 
 import path from "path";
 import { fileURLToPath } from "url";
+import { URL as NodeURL } from "node:url";
+
+globalThis.URL = NodeURL;
 
 import { runDiesel } from "./app/DieselFuelScript.js";
 import { runTE } from "./app/TE-API.js";
@@ -12,16 +15,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 process.chdir(__dirname);
 
+console.log("URL typeof:", typeof URL);
+console.log("URL value:", URL);
+console.log("URL name:", URL?.name);
+
 async function runSchedule() {
   console.log("Finance fetcher started at", new Date().toISOString());
 
   await runDiesel();
   await sleep(3000);
 
-  await runTE();
-  await sleep(3000);
+  // await runTE();
+  // await sleep(3000);
 
-  await runOil();
+  // await runOil();
 }
 
 function sleep(ms) {

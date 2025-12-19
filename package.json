@@ -20,6 +20,7 @@
   "homepage": "https://github.com/arcnid/finance-fetcher#readme",
   "dependencies": {
     "axios": "^1.13.2",
+    "node-fetch": "^3.3.2",
     "tradingeconomics": "^2.5.6"
   }
 }
