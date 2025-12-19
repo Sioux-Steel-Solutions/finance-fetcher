@@ -25,10 +25,10 @@ async function runSchedule() {
   await runDiesel();
   await sleep(3000);
 
-  // await runTE();
-  // await sleep(3000);
+  await runTE();
+  await sleep(3000);
 
-  // await runOil();
+  await runOil();
 }
 
 function sleep(ms) {
